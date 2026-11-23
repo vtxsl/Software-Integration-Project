@@ -1,11 +1,11 @@
 import mongoose from 'mongoose';
+import { loadEnvironment } from './config/loadEnvironment.js';
 
-const mongoUri =
-  process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/software_integration';
+const environment = loadEnvironment();
 
 try {
-  await mongoose.connect(mongoUri);
-  console.log('MongoDB connected');
+  await mongoose.connect(environment.mongoUri);
+  console.log(`MongoDB connected in ${environment.name}`);
 } catch (error) {
   console.error('MongoDB connection failed:', error.message);
   process.exitCode = 1;
